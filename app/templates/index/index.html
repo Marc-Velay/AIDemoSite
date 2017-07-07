@@ -1,0 +1,14 @@
+{% extends "index/base.html" %}
+{% block content %}
+    <h2>Hi! Welcome to my demo website! <br>Under this text you'll find a list of demos: pick one</h2>
+
+    {% for app in apps %}
+        <div>
+            <a href="/{{ app.name }}"><h3>{{ app.name }}</h3></a>
+    	</div>
+    {% endfor %}
+{% endblock %}
+
+{% block javascript %}
+	{{ super() }}
+{% endblock %}

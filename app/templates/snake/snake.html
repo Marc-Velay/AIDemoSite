@@ -1,0 +1,13 @@
+{% extends "index/base.html" %}
+
+{% block content %}
+
+    <canvas id="gc" width="600" height="600"></canvas>
+    <div id="test0"></div>
+
+{% endblock content %}
+
+{% block head %}
+    {{ super() }}
+    <script type="text/javascript" src="/static/snake/snake.js"></script>
+{% endblock head %}

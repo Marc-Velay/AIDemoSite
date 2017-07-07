@@ -1,0 +1,25 @@
+<!Doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{{ title }}</title>
+        {% block head %}
+        {% endblock head %}
+    </head>
+
+    <body>
+        <div class="container">
+            <div id="header" class="jumbotron">
+                <h1><a href="/">Marc's AI demo website</a></h1>
+                <p>
+                    Website for the purpose of demonstrating various AI web projects<br><br>
+                </p>
+
+            </div>
+        {% block content %}
+        {% endblock %}
+        </div>
+
+    </body>
+</html>
