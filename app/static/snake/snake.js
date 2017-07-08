@@ -4,63 +4,81 @@ window.onload=function() {
     document.addEventListener("keydown",keyPush);
     setInterval(game,1000/15);
 }
-px=py=10;
-gs=tc=20;
-ax=ay=15;
-xv=yv=0;
+
+posX=posY=10;
+tyleCount=25;
+gridSize=600/tyleCount;
+objX=objY=15;
+xVelocity=yVelocity=0;
 trail=[];
-tail = 5;
+origL=5;
+tail = origL;
+
+
 function game() {
-    px+=xv;
-    py+=yv;
-    if(px<0) {
-        px= tc-1;
+    posX+=xVelocity;
+    posY+=yVelocity;
+    if(posX<0) {
+        posX= tyleCount-1;
+        alert('game over');
     }
-    if(px>tc-1) {
-        px= 0;
+    if(posX>tyleCount) {
+        posX= 0;
+        alert('game over');
     }
-    if(py<0) {
-        py= tc-1;
+    if(posY<0) {
+        posY= tyleCount-1;
+        alert('game over');
     }
-    if(py>tc-1) {
-        py= 0;
+    if(posY>tyleCount) {
+        posY= 0;
+        alert('game over');
     }
+    /*setting up the background*/
     ctx.fillStyle="black";
     ctx.fillRect(0,0,canv.width,canv.height);
+    /***************************/
 
+    /*drawing the snake "tail"*/
     ctx.fillStyle="lime";
     for(var i=0;i<trail.length;i++) {
-        ctx.fillRect(trail[i].x*gs,trail[i].y*gs,gs-2,gs-2);
-        if(trail[i].x==px && trail[i].y==py) {
-            tail = 5;
+        ctx.fillRect(trail[i].x*gridSize,trail[i].y*gridSize,gridSize-2,gridSize-2);
+        if(trail[i].x==posX && trail[i].y==posY && (xVelocity != 0 || yVelocity != 0)) {
+            //detects collisions, reset to original length
+            tail = origL;
+            alert('game over');
         }
     }
-    trail.push({x:px,y:py});
+    /***************************/
+    trail.push({x:posX,y:posY});
     while(trail.length>tail) {
-    trail.shift();
+        trail.shift();
     }
-
-    if(ax==px && ay==py) {
+    /*An apple a day keeps the snake growing*/
+    if(objX==posX && objY==posY) {
         tail++;
-        ax=Math.floor(Math.random()*tc);
-        ay=Math.floor(Math.random()*tc);
+        objX=Math.floor(Math.random()*tyleCount);
+        objY=Math.floor(Math.random()*tyleCount);
     }
     ctx.fillStyle="red";
-    ctx.fillRect(ax*gs,ay*gs,gs-2,gs-2);
+    ctx.fillRect(objX*gridSize,objY*gridSize,gridSize-2,gridSize-2);
+    /****************************************/
 }
+
+
 function keyPush(evt) {
     switch(evt.keyCode) {
         case 37: //left
-            xv=-1;yv=0;
+            xVelocity=-1;yVelocity=0;
             break;
         case 38: //up
-            xv=0;yv=-1;
+            xVelocity=0;yVelocity=-1;
             break;
         case 39: //right
-            xv=1;yv=0;
+            xVelocity=1;yVelocity=0;
             break;
         case 40: //down
-            xv=0;yv=1;
+            xVelocity=0;yVelocity=1;
             break;
     }
 }
